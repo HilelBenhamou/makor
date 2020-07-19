@@ -52,7 +52,7 @@ function Forgot() {
     <>
     <div className="container">
       <div className="up">
-        <Link to={{ pathname: '/signUp'}}> SignUp </Link>
+        <Link to={{ pathname: '/'}}> SignUp </Link>
         <Link to={{ pathname: '/signIn'}}> I remember ! </Link>
       </div>
 

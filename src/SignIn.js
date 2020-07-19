@@ -52,7 +52,7 @@ function SignIn() {
     <>
     <div className="container">
       <div className="up">
-        <Link to={{ pathname: '/signUp'}}> Don't have an account </Link>
+        <Link to={{ pathname: '/'}}> Don't have an account </Link>
         <Link to={{ pathname: '/forgot'}}> Forgot your details </Link>
       </div>
 

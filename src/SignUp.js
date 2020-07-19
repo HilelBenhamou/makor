@@ -99,7 +99,7 @@ function SignUp() {
             </div>
             <div className="account">
               <div>
-                <Link to={{ pathname: '/signUp'}}><button className="btn_account"> Create my account </button></Link>
+                <button className="btn_account"> Create my account </button>
               </div>
               <div>
                 <Link to={{ pathname: '/signIn'}}>Already have one </Link>
