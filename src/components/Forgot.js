@@ -43,7 +43,11 @@ function Forgot() {
   function onChangeCaptcha(value) {
     console.log("Captcha value:", value);
   }
-
+  //
+  const [check_email, setcheck_email] = useState(false)
+  function sendDetails(){
+    setcheck_email(true);
+  }
   return (
     <>
     <div className="container">
@@ -51,26 +55,44 @@ function Forgot() {
         <Link to={{ pathname: '/'}}> SignUp </Link>
         <Link to={{ pathname: '/signIn'}}> I remember ! </Link>
       </div>
+      {
+        check_email ?
+        <>
+        <div className="middle">
+          <div>
+            <img src={image} alt="singin"></img>
+          </div>
+          <p>Success !!</p>
+          <p>An email has been sent to you to renew your password</p>
+        </div>
+        </> 
 
-      <div className="middle">
-        <div>
-          <img src={image} alt="singin"></img>
+        : 
+        <>
+        <div className="middle">
+          <div>
+            <img src={image} alt="singin"></img>
+          </div>
+          
+          <div className="input">
+            <label>Email</label>
+            <input onChange={handleChange}  style={ validateEmail(email) ? input_valid : email.length===0 ? input_basic :input_error  } type="text" placeholder="johnDoe@gmail.com" value={email}></input>
+            { validateEmail(email) === false && email.length !==0 ? <p style={{color:"red"}}>Email format not valid</p> : <p></p>}
+          </div>
+          <div className="captcha">
+              <ReCAPTCHA
+                sitekey="6LdTiLMZAAAAAOVjEracJ7Qi3LJIAXn2b7wYXsfv"
+                onChange={onChangeCaptcha}
+              />
+          </div>
+          
+          <button onClick={sendDetails} type="submit" className="btn_connect">Send me Details</button>
         </div>
-        
-        <div className="input">
-          <label>Email</label>
-          <input onChange={handleChange}  style={ validateEmail(email) ? input_valid : email.length===0 ? input_basic :input_error  } type="text" placeholder="johnDoe@gmail.com" value={email}></input>
-          { validateEmail(email) === false && email.length !==0 ? <p style={{color:"red"}}>Email format not valid</p> : <p></p>}
-        </div>
-        <div className="captcha">
-            <ReCAPTCHA
-              sitekey="6LdTiLMZAAAAAOVjEracJ7Qi3LJIAXn2b7wYXsfv"
-              onChange={onChangeCaptcha}
-            />
-        </div>
-        
-        <button type="submit" className="btn_connect">Send me Details</button>
-      </div>
+        </>
+      }
+      
+
+      
     </div>
     <style jsx>
       {`

@@ -1,4 +1,4 @@
-import React, { useState, PureComponent  } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import GoogleLogin from 'react-google-login';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -76,103 +76,125 @@ function SignUp() {
   function onChangeCaptcha(value) {
     console.log("Captcha value:", value);
   }
+  //
+  const [success, setSuccess] = useState(false)
+  function ClickSuccess(){
+    setSuccess(true);
+  }
   
   return (
     <>
-    <div className='container'>
-      <div className="left_side">
-        <h1>SignUp to JTI</h1>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
-        <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+    {
+      success ?
+      <>
+      <div className='container'>
+        <h1>Great! You did it :)</h1>
+        <p>Hi {name} and welcome aboard!</p>
+        <p>An email has been sent to your inbox ({email}) with your connection details and platform link.</p>
+        <p>Don't forget to confirm your email so you can continue to use JTI services.</p>
+        <p>Now you'll be automatically redirected... Enjoy!</p>
+        <p style={{textAlign:"center"}}>Redirecting in... 10 seconds</p>
       </div>
-      <div className="right_side">
-          <div className="compagny_details">
-            <div className="title">
-              <h3>Your Compagny's details</h3>
-            </div>
-            <div className="inputs">
-              <div className="input_name">
-                <label htmlFor="name">Name</label>
-                <input onChange={handleChange} style={name_company.length < 3 && name_company.length !==0 ? input_error : name_company.length ===0 ? input_basic: input_valid } type="text" name="name" placeholder="My Compagny LTD" value={name_company}></input>
-                {name_company.length < 3 && name_company.length !==0  ? <p style={{color:"red"}}>At least 3 chars</p> : <p></p>}
-              </div>
-              <div className="input_website">
-                <label htmlFor="website">Website</label>
-                <input onChange={handleChangeWebsite} style={is_url(website) ? input_valid : website.length === 0 ? input_basic : input_error } type="text" name="website" placeholder="https:\\compagny.com" value={website} ></input>
-                { is_url(website) === false && website.length !==0  ? <p style={{color:"red"}}>URL format not valid</p> : <p></p>}
-              </div>
-            </div>
+      </>
+      :
+      <>
+        <div className='container'>
+          <div className="left_side">
+            <h1>SignUp to JTI</h1>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
+            <p>blablablablablablablablablablablablablablablablablablablablablabla</p>
           </div>
-          <div className="your_details">
-            <div className="title">
-              <h3>Your details</h3>
-            </div>
-            {showEmail ?
-            <>
-            <div className="btns">
-              <div className="input_name">
-                <label htmlFor="name">Name</label>
-                <input onChange={handleChangeName} style={name.length < 3 && name.length !==0 ? input_error : name.length ===0 ? input_basic: input_valid } type="text" name="name" placeholder="John Doe" value={name} ></input>
-                {name.length < 3 && name.length !==0  ? <p style={{color:"red"}}>At least 3 chars</p> : <p></p>}
+          <div className="right_side">
+              <div className="compagny_details">
+                <div className="title">
+                  <h3>Your Compagny's details</h3>
+                </div>
+                <div className="inputs">
+                  <div className="input_name">
+                    <label htmlFor="name">Name</label>
+                    <input onChange={handleChange} style={name_company.length < 3 && name_company.length !==0 ? input_error : name_company.length ===0 ? input_basic: input_valid } type="text" name="name" placeholder="My Compagny LTD" value={name_company}></input>
+                    {name_company.length < 3 && name_company.length !==0  ? <p style={{color:"red"}}>At least 3 chars</p> : <p></p>}
+                  </div>
+                  <div className="input_website">
+                    <label htmlFor="website">Website</label>
+                    <input onChange={handleChangeWebsite} style={is_url(website) ? input_valid : website.length === 0 ? input_basic : input_error } type="text" name="website" placeholder="https:\\compagny.com" value={website} ></input>
+                    { is_url(website) === false && website.length !==0  ? <p style={{color:"red"}}>URL format not valid</p> : <p></p>}
+                  </div>
+                </div>
               </div>
-              <div className="input_email">
-                <label htmlFor="email">Email</label>
-                <input onChange={handleChangeEmail} style={ validateEmail(email) ? input_valid : email.length===0 ? input_basic :input_error  } type="text" name="email" placeholder="johnDoe@gmail.com" value={email}></input>
-                { validateEmail(email) === false && email.length !==0 ? <p style={{color:"red"}}>Email format not valid</p> : <p></p>}
-              </div> 
-            </div>
-            <div className="email">
-              or use your <Link to={{ pathname: '/signIn'}}> existing account </Link>
-            </div>
-            </>
-              : 
-            <>
-            <div className="btns">
-              <GoogleLogin
-                clientId="549362098810-lcaso8rt9svrpe7lj1mvtitomd877ks0.apps.googleusercontent.com"
-                buttonText="Login with Google"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
-              />
-              <a href="https://linkedin.com"><button className='btn' type="submit" >Connect to Linkedin</button></a>
-            </div>
-            <div className="email">
-              Or signUp <a href="#" onClick={connectByEmail}> by Email</a>
-            </div> 
-            </>
-            }
-          </div>
-          <div className="captcha">
-            <ReCAPTCHA
-              sitekey="6LdTiLMZAAAAAOVjEracJ7Qi3LJIAXn2b7wYXsfv"
-              onChange={onChangeCaptcha}
-            />
-          </div>
-          <div className="bottom">
-            <div className="checkbox">
-              <input type="checkbox"></input>
-              <label>I agree to the <a href="#terms_and_conditions">Terms & Conditions</a></label>
-            </div>
-            <div className="account">
-              <div>
-                <button className="btn_account"> Create my account </button>
+              <div className="your_details">
+                <div className="title">
+                  <h3>Your details</h3>
+                </div>
+                {showEmail ?
+                <>
+                <div className="btns">
+                  <div className="input_name">
+                    <label htmlFor="name">Name</label>
+                    <input onChange={handleChangeName} style={name.length < 3 && name.length !==0 ? input_error : name.length ===0 ? input_basic: input_valid } type="text" name="name" placeholder="John Doe" value={name} ></input>
+                    {name.length < 3 && name.length !==0  ? <p style={{color:"red"}}>At least 3 chars</p> : <p></p>}
+                  </div>
+                  <div className="input_email">
+                    <label htmlFor="email">Email</label>
+                    <input onChange={handleChangeEmail} style={ validateEmail(email) ? input_valid : email.length===0 ? input_basic :input_error  } type="text" name="email" placeholder="johnDoe@gmail.com" value={email}></input>
+                    { validateEmail(email) === false && email.length !==0 ? <p style={{color:"red"}}>Email format not valid</p> : <p></p>}
+                  </div> 
+                </div>
+                <div className="email">
+                  or use your <Link to={{ pathname: '/signIn'}}> existing account </Link>
+                </div>
+                </>
+                  : 
+                <>
+                <div className="btns">
+                  <GoogleLogin
+                    clientId="549362098810-lcaso8rt9svrpe7lj1mvtitomd877ks0.apps.googleusercontent.com"
+                    buttonText="Login with Google"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                  />
+                  <a href="https://linkedin.com"><button className='btn' type="submit" >Connect to Linkedin</button></a>
+                </div>
+                <div className="email">
+                  Or signUp <a href="#" onClick={connectByEmail}> by Email</a>
+                </div> 
+                </>
+                }
               </div>
-              <div>
-                <Link to={{ pathname: '/signIn'}}>Already have one </Link>
+              <div className="captcha">
+                <ReCAPTCHA
+                  sitekey="6LdTiLMZAAAAAOVjEracJ7Qi3LJIAXn2b7wYXsfv"
+                  onChange={onChangeCaptcha}
+                />
               </div>
-               
-            </div>
+              <div className="bottom">
+                <div className="checkbox">
+                  <input type="checkbox"></input>
+                  <label>I agree to the <a href="#terms_and_conditions">Terms & Conditions</a></label>
+                </div>
+                <div className="account">
+                  <div>
+                    <Link to={{ pathname: '/success'}}> Create my account </Link>
+                    <button onClick={ClickSuccess} className="btn_account"> Create my account </button>
+                  </div>
+                  <div>
+                    <Link to={{ pathname: '/signIn'}}>Already have one </Link>
+                  </div>
+                  
+                </div>
+              </div>
           </div>
-      </div>
-    </div>
+        </div>
+      </> 
+    }
 
     <style jsx>{`
       .container{
