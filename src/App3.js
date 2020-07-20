@@ -1,5 +1,5 @@
 import React from 'react';
-import Forgot from './Forgot';
+import Forgot from './components/Forgot';
 
 function App3() {
   return (

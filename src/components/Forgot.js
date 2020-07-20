@@ -1,16 +1,6 @@
 import React , {useState} from 'react';
-import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
-
-
-function onChangeCaptcha(value) {
-  console.log("Captcha value:", value);
-}
-const recaptchaRef = React.createRef();
-function onSubmit(){
-  const recaptchaValue = recaptchaRef.current.getValue();
-  this.props.onSubmit(recaptchaValue);
-}
+import ReCAPTCHA from "react-google-recaptcha";
 
 function Forgot() {
   const input_valid = {
@@ -47,6 +37,10 @@ function Forgot() {
   function handlePsw(e){
     setPassword(e.target.value);
   }
+  
+  function onChangeCaptcha(value) {
+    console.log("Captcha value:", value);
+  }
 
   return (
     <>
@@ -65,6 +59,12 @@ function Forgot() {
           <label>Email</label>
           <input onChange={handleChange}  style={ validateEmail(email) ? input_valid : email.length===0 ? input_basic :input_error  } type="text" placeholder="johnDoe@gmail.com" value={email}></input>
           { validateEmail(email) === false && email.length !==0 ? <p style={{color:"red"}}>Email format not valid</p> : <p></p>}
+        </div>
+        <div className="captcha">
+            <ReCAPTCHA
+              sitekey="6LdTiLMZAAAAAOVjEracJ7Qi3LJIAXn2b7wYXsfv"
+              onChange={onChangeCaptcha}
+            />
         </div>
         
         <button type="submit" className="btn_connect">Send me Details</button>
@@ -109,6 +109,7 @@ function Forgot() {
           border:3px solid black;
           border-radius: 5px;
           padding:5px;
+          font-weight:bold;
         }
         .btn_down{
           box-shadow: 2px 2px 2px black;
@@ -123,7 +124,7 @@ function Forgot() {
           margin-right: 450px;
         }
         .captcha{
-          text-align:center;
+          margin: 0px 400px 20px 400px;
         }
 
       `}

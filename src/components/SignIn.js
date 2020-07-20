@@ -1,16 +1,7 @@
 import React , {useState} from 'react';
-import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
-
-
-function onChangeCaptcha(value) {
-  console.log("Captcha value:", value);
-}
-const recaptchaRef = React.createRef();
-function onSubmit(){
-  const recaptchaValue = recaptchaRef.current.getValue();
-  this.props.onSubmit(recaptchaValue);
-}
+import ReCAPTCHA from "react-google-recaptcha";
+import GoogleLogin from 'react-google-login';
 
 function SignIn() {
   const input_valid = {
@@ -47,6 +38,12 @@ function SignIn() {
   function handlePsw(e){
     setPassword(e.target.value);
   }
+  function onChangeCaptcha(value) {
+    console.log("Captcha value:", value);
+  }
+  const responseGoogle = (response) => {
+    console.log(response);
+  }
 
   return (
     <>
@@ -75,6 +72,12 @@ function SignIn() {
         {/*<form onSubmit={onSubmit} >
           <ReCAPTCHA ref ={recaptchaRef} sitekey="6LdaPLMZAAAAAJQ6yDMgkvBFePi7elcjkDoCETjP" onChange={onChangeCaptcha} />
           </form>*/}
+        <div className="captcha">
+          <ReCAPTCHA
+            sitekey="6LdTiLMZAAAAAOVjEracJ7Qi3LJIAXn2b7wYXsfv"
+            onChange={onChangeCaptcha}
+          />
+        </div>
         <div>
           <input type="checkbox"></input>
           <label>Remember Me</label>
@@ -84,7 +87,13 @@ function SignIn() {
       </div>
 
       <div className="down">
-        <a type="submit" href="https://gmail.com"><button id='google' className='btn_down' >Connect to Google</button></a>
+        <GoogleLogin
+          clientId="549362098810-lcaso8rt9svrpe7lj1mvtitomd877ks0.apps.googleusercontent.com"
+          buttonText="Login with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
         <a href="https://linkedin.com"><button className='btn_down' type="submit" >Connect to Linkedin</button></a>
       </div>
     </div>
@@ -127,6 +136,7 @@ function SignIn() {
           border:3px solid black;
           border-radius: 5px;
           padding:5px;
+          font-weight:bold;
         }
         .btn_down{
           box-shadow: 2px 2px 2px black;
@@ -141,7 +151,7 @@ function SignIn() {
           margin-right: 450px;
         }
         .captcha{
-          text-align:center;
+          margin: 0px 400px 20px 400px;
         }
 
       `}

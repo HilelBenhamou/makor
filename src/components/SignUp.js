@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import Forgot from './Forgot';
+import React, { useState, PureComponent  } from 'react';
 import { Link } from "react-router-dom";
+import GoogleLogin from 'react-google-login';
+import ReCAPTCHA from "react-google-recaptcha";
 
 
 function SignUp() {
@@ -21,6 +22,9 @@ function SignUp() {
     border:"3px solid black",
     borderRadius: "5px",
     padding:"5px",
+  }
+  const responseGoogle = (response) => {
+    console.log(response);
   }
 
   const [name_company, setName_compagny] = useState('')
@@ -44,7 +48,30 @@ function SignUp() {
     console.log(is_url(website))
     setWebsite(e.target.value)
   }
+  const [showEmail, setShowEmail] = useState(false)
+  function connectByEmail(){
+    setShowEmail(true);
+  }
+  const [email, setEmail] = useState('')
+  function handleChangeEmail(e){
+    console.log(e.target.value)
+    setEmail(e.target.value)
+  }
+  function validateEmail(email) 
+    {
+      var re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
+      return re.test(email);
+    }
+  const [name, setName] = useState('')
+  function handleChangeName(e){
+    //console.log(e.target.value);
+    setName(e.target.value);
+  }
+
+  function onChangeCaptcha(value) {
+    console.log("Captcha value:", value);
+  }
   
   return (
     <>
@@ -79,18 +106,51 @@ function SignUp() {
               </div>
             </div>
           </div>
-
           <div className="your_details">
             <div className="title">
               <h3>Your details</h3>
             </div>
+            {showEmail ?
+            <>
             <div className="btns">
-              <a type="submit" href="https://gmail.com"><button id='google' className='btn' >Connect to Google</button></a>
+              <div className="input_name">
+                <label htmlFor="name">Name</label>
+                <input onChange={handleChangeName} style={name.length < 3 && name.length !==0 ? input_error : name.length ===0 ? input_basic: input_valid } type="text" name="name" placeholder="John Doe" value={name} ></input>
+                {name.length < 3 && name.length !==0  ? <p style={{color:"red"}}>At least 3 chars</p> : <p></p>}
+              </div>
+              <div className="input_email">
+                <label htmlFor="email">Email</label>
+                <input onChange={handleChangeEmail} style={ validateEmail(email) ? input_valid : email.length===0 ? input_basic :input_error  } type="text" name="email" placeholder="johnDoe@gmail.com" value={email}></input>
+                { validateEmail(email) === false && email.length !==0 ? <p style={{color:"red"}}>Email format not valid</p> : <p></p>}
+              </div> 
+            </div>
+            <div className="email">
+              or use your <Link to={{ pathname: '/signIn'}}> existing account </Link>
+            </div>
+            </>
+              : 
+            <>
+            <div className="btns">
+              <GoogleLogin
+                clientId="549362098810-lcaso8rt9svrpe7lj1mvtitomd877ks0.apps.googleusercontent.com"
+                buttonText="Login with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+              />
               <a href="https://linkedin.com"><button className='btn' type="submit" >Connect to Linkedin</button></a>
             </div>
             <div className="email">
-              Or use your <Link to={{ pathname: '/signIn'}}>existing Account </Link>
-            </div>
+              Or signUp <a href="#" onClick={connectByEmail}> by Email</a>
+            </div> 
+            </>
+            }
+          </div>
+          <div className="captcha">
+            <ReCAPTCHA
+              sitekey="6LdTiLMZAAAAAOVjEracJ7Qi3LJIAXn2b7wYXsfv"
+              onChange={onChangeCaptcha}
+            />
           </div>
           <div className="bottom">
             <div className="checkbox">
@@ -115,7 +175,7 @@ function SignUp() {
         display:flex;
         justify-content: space-evenly;
         padding:100px;
-        font-family:Roboto, 'Segoe UI', Tahoma, sans-serif
+        font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;
       }
       .left_side, .right_side{
         //border: 2px solid black;
@@ -163,14 +223,15 @@ function SignUp() {
       .account > button{
         margin-right:20px;
       }
-      .input_name, .input_website{
+      .input_name, .input_website, .input_email{
         display:flex;
         flex-direction: column;
       }
-      .input_name > input, .input_website >input{
+      .input_name > input, .input_website >input, .input_email > input{
         border:3px solid black;
         border-radius: 5px;
         padding:5px;
+        font-weight:bold;
       }
       .inputs, .btns{
         display:flex;
@@ -193,9 +254,13 @@ function SignUp() {
         color:grey;
         padding:5px;
       }
+      .captcha{
+        margin: 0px 150px 0px 150px;
+      }
     
     `}
     </style>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     </>
   )
 }
