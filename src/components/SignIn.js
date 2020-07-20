@@ -4,6 +4,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import GoogleLogin from 'react-google-login';
 
 function SignIn() {
+  //
   const input_valid = {
     border:"3px solid green",
     borderRadius: "5px",
@@ -21,26 +22,29 @@ function SignIn() {
     borderRadius: "5px",
     padding:"5px",
   }
+  //
   const image = require('./images.png');
-
+  //
   const [email, setEmail] = useState('')
   function handleChange(e){
     console.log(e.target.value)
     setEmail(e.target.value)
   }
-  function validateEmail(email) 
-    {
-      var re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+  function validateEmail(email) {
+    var re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
-      return re.test(email);
-    }
+    return re.test(email);
+  }
+  //
   const [password, setPassword] = useState('');
   function handlePsw(e){
     setPassword(e.target.value);
   }
+  //
   function onChangeCaptcha(value) {
     console.log("Captcha value:", value);
   }
+  //
   const responseGoogle = (response) => {
     console.log(response);
   }
