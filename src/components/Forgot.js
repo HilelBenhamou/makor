@@ -64,6 +64,7 @@ function Forgot() {
           </div>
           <p>Success !!</p>
           <p>An email has been sent to you to renew your password</p>
+          <p>Or click here to <Link to={{ pathname: '/reset'}}> reset your password </Link></p>
         </div>
         </> 
 

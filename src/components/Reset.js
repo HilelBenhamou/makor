@@ -62,6 +62,7 @@ function Reset(){
                     </>
                     }
                 </div>
+                <button className='btn' type="submit" >Validate</button>
             </div>
             <style jsx>
             {`
@@ -82,6 +83,15 @@ function Reset(){
                     padding:5px;
                     font-weight:bold;
                     margin-top: 15px;
+                }
+                .btn{
+                    box-shadow: 2px 2px 2px black;
+                    background-color:white;
+                    border:2px solid black;
+                    padding: 5px;
+                    width:20%;
+                    margin-left: 150px;
+
                 }
             `}
             
