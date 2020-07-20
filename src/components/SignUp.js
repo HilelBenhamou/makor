@@ -182,7 +182,6 @@ function SignUp() {
                 </div>
                 <div className="account">
                   <div>
-                    <Link to={{ pathname: '/success'}}> Create my account </Link>
                     <button onClick={ClickSuccess} className="btn_account"> Create my account </button>
                   </div>
                   <div>
