@@ -46,9 +46,9 @@ function Reset(){
                     <>
                     <div style={{color: 'red'}}>
                         <p>Password must be:</p>
-                        <p>- At least 6 characters long</p>
-                        <p>- Composed by letters and numbers</p>
-                        <p>- At least one capital letter</p>
+                        <p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>- At least 6 characters long</p>
+                        <p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>- Composed by letters and numbers</p>
+                        <p><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>- At least one capital letter</p>
                     </div>
                     </>
                     :
