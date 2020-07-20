@@ -87,7 +87,7 @@ function SignUp() {
     {
       success ?
       <>
-      <div className='container'>
+      <div className='contain'>
         <h1>Great! You did it :)</h1>
         <p>Hi {name} and welcome aboard!</p>
         <p>An email has been sent to your inbox ({email}) with your connection details and platform link.</p>
@@ -200,6 +200,10 @@ function SignUp() {
       .container{
         display:flex;
         justify-content: space-evenly;
+        padding:100px;
+        font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;
+      }
+      .contain{
         padding:100px;
         font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;
       }
